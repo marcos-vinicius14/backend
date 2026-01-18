@@ -21,6 +21,7 @@
 - Class names use `PascalCase` (e.g., `GreetingResource`, `MyEntity`).
 - Resource endpoints typically end with `Resource` and map paths with `@Path`.
 - Entities use Hibernate Panache Active Record; omit getters/setters unless strictly required.
+- Mensagens de validação e exceções devem ser escritas em português brasileiro.
 
 ## Development Principles
 
