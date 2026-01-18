@@ -52,6 +52,7 @@ public final class User {
         if (creditsBalance > Integer.MAX_VALUE - amount) {
             throw new InvalidCreditsOperationException("Saldo de créditos excede o limite permitido.");
         }
+        
         return new User(id, email, passwordHash, fullName, stripeCustomerId, creditsBalance + amount, createdAt);
     }
 

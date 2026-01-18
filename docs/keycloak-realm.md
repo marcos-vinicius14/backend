@@ -7,7 +7,7 @@ so the realm is imported on startup.
 ## What gets created
 - Realm: `easyjobs`
 - Client: `easyjobs-bff` (secret `easyjobs-secret`)
-- Roles: `ADMIN`, `OWNER`, `MANAGER`, `MEMBER`, `READ_ONLY`, `SUPPORT`
+- Roles: `ADMIN`, `OWNER`, `MANAGER`, `MEMBER`, `READ`, `READ_ONLY`, `SUPPORT`
 
 ## How to use
 1) Start the stack: `docker compose up -d`

@@ -21,6 +21,10 @@
         "description": "Usuario padrao do tenant."
       },
       {
+        "name": "READ",
+        "description": "Acesso basico de leitura."
+      },
+      {
         "name": "READ_ONLY",
         "description": "Acesso somente leitura."
       },
