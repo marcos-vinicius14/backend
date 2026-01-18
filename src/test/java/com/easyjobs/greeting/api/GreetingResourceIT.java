@@ -1,4 +1,4 @@
-package org.easyjobs;
+package com.easyjobs.greeting.api;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
