@@ -1,0 +1,16 @@
+quarkus:
+  oidc:
+    application-type: web-app
+    auth-server-url: ${OIDC_AUTH_SERVER_URL:http://localhost:8180/realms/easyjobs}
+    client-id: ${OIDC_CLIENT_ID:easyjobs-bff}
+    credentials:
+      secret: ${OIDC_CLIENT_SECRET:easyjobs-secret}
+    token-state-manager:
+      type: redis
+    authentication:
+      cookie-path: /
+      http-only: true
+    roles:
+      role-claim-path: realm_access/roles
+  redis:
+    hosts: ${REDIS_HOSTS:redis://localhost:6379}

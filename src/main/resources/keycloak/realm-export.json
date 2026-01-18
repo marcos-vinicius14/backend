@@ -1,0 +1,52 @@
+{
+  "realm": "easyjobs",
+  "enabled": true,
+  "displayName": "EasyJobs",
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "Administrador do sistema."
+      },
+      {
+        "name": "OWNER",
+        "description": "Dono do tenant e gestor principal."
+      },
+      {
+        "name": "MANAGER",
+        "description": "Gestor operacional do tenant."
+      },
+      {
+        "name": "MEMBER",
+        "description": "Usuario padrao do tenant."
+      },
+      {
+        "name": "READ_ONLY",
+        "description": "Acesso somente leitura."
+      },
+      {
+        "name": "SUPPORT",
+        "description": "Suporte interno com acesso limitado."
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "easyjobs-bff",
+      "name": "EasyJobs BFF",
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "easyjobs-secret",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false,
+      "redirectUris": [
+        "http://localhost:8080/*"
+      ],
+      "webOrigins": [
+        "http://localhost:8080"
+      ]
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Fluxos de dados
 
+Veja `docs/keycloak-realm.md` para o import do realm do Keycloak usado no fluxo de auth.
+
 ## 1. Identidade: `users` e `user_sessions`
 Contexto `identity`.
 
