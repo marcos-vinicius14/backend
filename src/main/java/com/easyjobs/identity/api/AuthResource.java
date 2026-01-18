@@ -2,7 +2,10 @@ package com.easyjobs.identity.api;
 
 import com.easyjobs.identity.application.gateway.AuthenticatedUser;
 import com.easyjobs.identity.application.gateway.RegisteredUser;
+import java.util.concurrent.CompletionStage;
+
 import com.easyjobs.identity.application.usecase.GetAuthenticatedUserUseCase;
+import com.easyjobs.identity.application.usecase.LogoutUserUseCase;
 import com.easyjobs.identity.application.usecase.RegisterUserUseCase;
 
 import io.quarkus.security.Authenticated;
@@ -22,16 +25,29 @@ public class AuthResource {
 
     private final GetAuthenticatedUserUseCase sessionUseCase;
     private final RegisterUserUseCase registerUseCase;
+    private final LogoutUserUseCase logoutUseCase;
 
-    public AuthResource(GetAuthenticatedUserUseCase sessionUseCase, RegisterUserUseCase registerUseCase) {
+    public AuthResource(
+            GetAuthenticatedUserUseCase sessionUseCase,
+            RegisterUserUseCase registerUseCase,
+            LogoutUserUseCase logoutUseCase) {
         this.sessionUseCase = sessionUseCase;
         this.registerUseCase = registerUseCase;
+        this.logoutUseCase = logoutUseCase;
     }
 
     @GET
     @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     public AuthenticatedUser session() {
+        return sessionUseCase.execute();
+    }
+
+    @GET
+    @Path("/login")
+    @Authenticated
+    @Produces(MediaType.APPLICATION_JSON)
+    public AuthenticatedUser login() {
         return sessionUseCase.execute();
     }
 
@@ -49,5 +65,13 @@ public class AuthResource {
         String registeredEmail = registered.email();
         RegisterUserResponse response = new RegisterUserResponse(id, registeredEmail, registered.roles());
         return Response.status(Status.CREATED).entity(response).build();
+    }
+
+    @POST
+    @Path("/logout")
+    @Authenticated
+    public CompletionStage<Response> logout() {
+        CompletionStage<Void> logout = logoutUseCase.execute();
+        return logout.thenApply(ignore -> Response.noContent().build());
     }
 }

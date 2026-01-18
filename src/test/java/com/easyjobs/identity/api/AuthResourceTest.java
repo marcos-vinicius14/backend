@@ -9,11 +9,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import com.easyjobs.identity.application.gateway.RegisteredUser;
+import com.easyjobs.identity.application.gateway.LogoutGateway;
 import com.easyjobs.identity.application.gateway.UserRegistrationGateway;
 import com.easyjobs.identity.application.usecase.RegisterUserCommand;
 
@@ -27,6 +29,9 @@ class AuthResourceTest {
 
     @InjectMock
     UserRegistrationGateway registrationGateway;
+
+    @InjectMock
+    LogoutGateway logoutGateway;
 
     @Test
     void shouldReturnUnauthorizedWhenNotAuthenticated() {
@@ -47,6 +52,18 @@ class AuthResourceTest {
                 .statusCode(200)
                 .body("username", is("ada"))
                 .body("roles", hasItems("ADMIN", "OWNER"));
+    }
+
+    @Test
+    @TestSecurity(user = "ada", roles = { "ADMIN" })
+    void shouldLoginWhenAuthenticated() {
+        given()
+                .when()
+                .get("/api/auth/login")
+                .then()
+                .statusCode(200)
+                .body("username", is("ada"))
+                .body("roles", hasItems("ADMIN"));
     }
 
     @Test
@@ -72,5 +89,33 @@ class AuthResourceTest {
         assertEquals("ada@example.com", command.email());
         assertEquals("secret", command.password());
         assertEquals("READ", command.role());
+    }
+
+    @Test
+    @TestSecurity(user = "ada", roles = { "ADMIN" })
+    void shouldLogoutWhenAuthenticated() {
+        when(logoutGateway.logout()).thenReturn(CompletableFuture.completedFuture(null));
+
+        given()
+                .when()
+                .post("/api/auth/logout")
+                .then()
+                .statusCode(204);
+
+        verify(logoutGateway).logout();
+    }
+
+    @Test
+    @TestSecurity(user = "ada", roles = { "ADMIN" })
+    void shouldReturnNoContentWhenLogoutFails() {
+        when(logoutGateway.logout()).thenReturn(CompletableFuture.failedFuture(new RuntimeException("falha")));
+
+        given()
+                .when()
+                .post("/api/auth/logout")
+                .then()
+                .statusCode(204);
+
+        verify(logoutGateway).logout();
     }
 }
