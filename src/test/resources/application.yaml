@@ -1,3 +1,7 @@
 quarkus:
   oidc:
     tenant-enabled: false
+  log:
+    category:
+      "com.easyjobs.identity.application.usecase.LogoutUserUseCase":
+        level: ERROR
