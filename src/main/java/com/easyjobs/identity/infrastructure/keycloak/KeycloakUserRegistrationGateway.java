@@ -3,12 +3,12 @@ package com.easyjobs.identity.infrastructure.keycloak;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
 import com.easyjobs.identity.application.exception.UserRegistrationException;
 import com.easyjobs.identity.application.gateway.RegisteredUser;
 import com.easyjobs.identity.application.gateway.UserRegistrationGateway;
 import com.easyjobs.identity.application.usecase.RegisterUserCommand;
-
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.WebApplicationException;

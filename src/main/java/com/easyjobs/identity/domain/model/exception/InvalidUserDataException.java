@@ -1,7 +1,15 @@
 package com.easyjobs.identity.domain.model.exception;
 
-public class InvalidUserDataException extends RuntimeException {
+import com.easyjobs.shared.exception.BusinessException;
+import jakarta.ws.rs.core.Response.Status;
+
+public class InvalidUserDataException extends BusinessException {
     public InvalidUserDataException(String message) {
         super(message);
+    }
+
+    @Override
+    public Status getStatus() {
+        return Status.BAD_REQUEST;
     }
 }

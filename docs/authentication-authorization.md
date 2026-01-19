@@ -36,6 +36,10 @@ Endpoint publico:
 O cadastro cria o usuario no Keycloak e atribui a role.
 Se a atribuicao falhar, o usuario e removido para evitar estado inconsistente.
 
+Observacao: o auto-registro via tela do Keycloak esta desabilitado no realm exportado.
+O fluxo oficial de cadastro e o endpoint do backend; o login auto-reconhece usuarios criados
+por esse fluxo. Para habilitar o cadastro na UI do Keycloak, ajuste o realm e reimporte.
+
 ## Login e logout explicitos
 - **Login**: `GET /api/auth/login` (forca o fluxo OIDC).
 - **Logout**: `POST /api/auth/logout` (encerra a sessao no backend e remove o cookie).

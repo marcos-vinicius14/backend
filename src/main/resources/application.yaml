@@ -10,6 +10,7 @@ quarkus:
     authentication:
       cookie-path: /
     roles:
+      source: accesstoken
       role-claim-path: realm_access/roles
   redis:
     hosts: ${REDIS_HOSTS:redis://localhost:6379}
@@ -18,6 +19,10 @@ quarkus:
       enabled: true
       origins: ${CORS_ORIGINS:http://localhost:3000}
       access-control-allow-credentials: true
+  smallrye-openapi:
+    info-title: EasyJobs API
+    info-version: 1.0.0
+    info-description: API do EasyJobs para autenticação e cadastro de usuários.
   rest-client:
     keycloak-admin:
       url: ${KEYCLOAK_ADMIN_URL:http://localhost:8180}
