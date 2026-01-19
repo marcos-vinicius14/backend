@@ -23,6 +23,7 @@ public final class User {
         this.email = normalizeEmail(email);
         this.passwordHash = requireNonBlank(passwordHash, "hash da senha");
         this.fullName = normalizeFullName(fullName);
+
         if (creditsBalance < 0) {
             throw new InvalidUserDataException("saldo de créditos não pode ser negativo");
         }
@@ -40,6 +41,7 @@ public final class User {
         if (creditsBalance <= 0) {
             throw new InsufficientCreditsException("Saldo de créditos insuficiente para consumir.");
         }
+    
         return new User(id, email, passwordHash, fullName, stripeCustomerId, creditsBalance - 1, createdAt);
     }
 
@@ -50,6 +52,7 @@ public final class User {
         if (creditsBalance > Integer.MAX_VALUE - amount) {
             throw new InvalidCreditsOperationException("Saldo de créditos excede o limite permitido.");
         }
+        
         return new User(id, email, passwordHash, fullName, stripeCustomerId, creditsBalance + amount, createdAt);
     }
 

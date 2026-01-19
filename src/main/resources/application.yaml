@@ -1,0 +1,36 @@
+quarkus:
+  oidc:
+    application-type: web-app
+    auth-server-url: ${OIDC_AUTH_SERVER_URL:http://localhost:8180/realms/easyjobs}
+    client-id: ${OIDC_CLIENT_ID:easyjobs-bff}
+    credentials:
+      secret: ${OIDC_CLIENT_SECRET:easyjobs-secret}
+    token-state-manager:
+      strategy: keep-all-tokens
+    authentication:
+      cookie-path: /
+    roles:
+      source: accesstoken
+      role-claim-path: realm_access/roles
+  redis:
+    hosts: ${REDIS_HOSTS:redis://localhost:6379}
+  http:
+    cors:
+      enabled: true
+      origins: ${CORS_ORIGINS:http://localhost:3000}
+      access-control-allow-credentials: true
+  smallrye-openapi:
+    info-title: EasyJobs API
+    info-version: 1.0.0
+    info-description: API do EasyJobs para autenticação e cadastro de usuários.
+  rest-client:
+    keycloak-admin:
+      url: ${KEYCLOAK_ADMIN_URL:http://localhost:8180}
+
+keycloak:
+  admin:
+    admin-realm: ${KEYCLOAK_ADMIN_REALM:master}
+    user-realm: ${KEYCLOAK_USER_REALM:easyjobs}
+    client-id: ${KEYCLOAK_ADMIN_CLIENT_ID:admin-cli}
+    username: ${KEYCLOAK_ADMIN_USERNAME:admin}
+    password: ${KEYCLOAK_ADMIN_PASSWORD:admin}

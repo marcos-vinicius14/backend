@@ -62,9 +62,6 @@
 ### DRY (Don't Repeat Yourself)
 - Avoid code duplication. Extract common logic into reusable methods or classes.
 
-### YAGNI (You Aren't Gonna Need It)
-- Don't implement features until they are actually needed. Avoid premature abstraction.
-
 ## Testing Guidelines
 - Frameworks: JUnit 5 with RestAssured for HTTP tests.
 - Naming: unit tests end with `Test`, integration tests end with `IT` (e.g., `GreetingResourceTest`, `GreetingResourceIT`).
